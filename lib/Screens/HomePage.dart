@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 20.0,
+              height: height/6,
             ),
             Text(
               "SHORTEN YOUR URL",
