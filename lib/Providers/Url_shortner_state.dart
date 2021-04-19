@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:urlshortner/Model/url_shoetner_response_model.dart';
 
+
 class UrlShortnerState extends ChangeNotifier{
+
+  String  finalUrl = "";
+  int listCount = 0;
 final urlController = TextEditingController();
-String  finalUrl = "See your resultant URL here";
+
 
 handleGetLinkButton() async{
   final longUrl = urlController.text;
+
 
   final String shortUrl = await getShortLink(longUrl);
   finalUrl = "$shortUrl";
@@ -16,6 +21,7 @@ handleGetLinkButton() async{
 }
 
 Future<String> getShortLink(String longUrl) async{
+
 
   final result = await http.post("https://cleanuri.com/api/v1/shorten",body: {"url": longUrl});
 

@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -9,13 +11,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final focusNode = FocusNode();
+  var now = DateTime.now();
 
+
+
+  String day = "";
+  String timeStamp = "";
+  List<String> itemList = [];
+  final focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<UrlShortnerState>(context, listen: true);
-  
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -74,36 +82,97 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children:<Widget> [
+                  state.finalUrl.isEmpty
+                      ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("See your resultant link here",
+                    style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 21.0,
+                        fontWeight: FontWeight.bold,
+                    ),),
+                      )
+                      : Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            state.finalUrl,
+                            style: TextStyle(
+                              fontSize: 21.0,
+                              color: Colors.black54,
+                            ),
+                          ),
+                      ),
 
-            GestureDetector(
-              child: Text(
-                state.finalUrl,
-                style: TextStyle(
-                  fontSize: 21.0,
-                  color: Colors.black54,
-                ),
+                  SizedBox(
+
+                    width: width * 0.07,
+                  ),
+                  IconButton(
+
+                    icon: Icon(Icons.content_copy),
+                    onPressed: (){
+                      Clipboard.setData(ClipboardData(text: state.finalUrl))
+                          .whenComplete(() {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('Link copied'),
+                          duration: Duration(seconds: 1),
+                        ));
+                      });
+
+                    },
+
+                  ),
+                ],
               ),
-              onTap: (){
-               Clipboard.setData(ClipboardData(text: state.finalUrl)).whenComplete(() {
-                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Link copied'),
-                 duration: Duration(seconds: 1),
-                 ));
-
-               });
-
-              },
-
             ),
             SizedBox(
-              height: 35.0,
+              height: 10,
+            ),
+            Text(
+              "$day",
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 21.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              "$timeStamp",
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 21.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 15.0,
             ),
             SizedBox(
               height: height / 22,
               width: width / 2,
               child: ElevatedButton(
                 onPressed: () {
-                  state.handleGetLinkButton();
-                  state.urlController.text = "";
+                  print(state.urlController.text);
+
+
+                    day = "Created on " +
+                        now.day.toString() +
+                        "." +
+                        now.month.toString() +
+                        "." +
+                        now.year.toString();
+
+                    timeStamp = "at " + now.hour.toString() + ":" +
+                        now.minute.toString() + ":" + now.second.toString();
+
+
+                    state.handleGetLinkButton();
+
+                    state.urlController.text = "";
 
                 },
                 child: Text(
@@ -114,6 +183,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 15,
+            ),
+
           ],
         ),
       ),
