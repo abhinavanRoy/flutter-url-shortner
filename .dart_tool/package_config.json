@@ -63,15 +63,15 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.13.1",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http-0.12.2",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.4"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-4.0.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/http_parser-3.1.4",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.3"
     },
     {
       "name": "matcher",
@@ -170,7 +170,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-04-18T17:54:30.401311Z",
+  "generated": "2021-04-18T19:28:48.372398Z",
   "generator": "pub",
   "generatorVersion": "2.13.0-116.0.dev"
 }

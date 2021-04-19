@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:urlshortner/Providers/Url_shortner_state.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,10 +10,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final focusNode = FocusNode();
-  String resultUrl = "See your resultant URL here";
+
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<UrlShortnerState>(context, listen: true);
+    final key = new GlobalKey<ScaffoldState>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -26,10 +31,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 100.0,
+              height: 20.0,
             ),
             Text(
-              "SHORTEN YOUR URL WITH JUST ONE CLICK",
+              "SHORTEN YOUR URL",
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 21.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text(
+              "WITH JUST ONE CLICK",
               style: TextStyle(
                 color: Colors.black54,
                 fontSize: 21.0,
@@ -39,9 +55,10 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 25,
             ),
-            SizedBox(
-              width: width / 4,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: TextField(
+                controller: state.urlController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -49,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   filled: true,
                   fillColor: Colors.grey[200],
-                  hintText: "Paste or type the link",
+                  hintText: "Paste or type the URL",
                   hoverColor: Colors.white10,
                 ),
               ),
@@ -57,29 +74,41 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            Text(
-              "$resultUrl",
-              style: TextStyle(
-                fontSize: 21.0,
-                color: Colors.black54,
+
+            GestureDetector(
+              child: Text(
+                state.finalUrl,
+                style: TextStyle(
+                  fontSize: 21.0,
+                  color: Colors.black54,
+                ),
               ),
+              onTap: (){
+               Clipboard.setData(ClipboardData(text: state.finalUrl)).whenComplete(() {
+                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Link copied'),
+                 duration: Duration(seconds: 1),
+                 ));
+
+               });
+
+              },
+
             ),
-
             SizedBox(
-
               height: 35.0,
             ),
             SizedBox(
-
-              height: height/20,
-              width: width/8,
+              height: height / 22,
+              width: width / 2,
               child: ElevatedButton(
-                onPressed: () {},
-                child: Text("Generate my URL",
-                style: TextStyle(
-                  fontSize: 18.0,
-
-                ),
+                onPressed: () {
+                  state.handleGetLinkButton();
+                },
+                child: Text(
+                  "Generate my URL",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
                 ),
               ),
             ),
