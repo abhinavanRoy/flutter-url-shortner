@@ -103,6 +103,8 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                 onPressed: () {
                   state.handleGetLinkButton();
+                  state.urlController.text = "";
+
                 },
                 child: Text(
                   "Generate my URL",
