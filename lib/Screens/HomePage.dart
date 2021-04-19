@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<UrlShortnerState>(context, listen: true);
-    final key = new GlobalKey<ScaffoldState>();
+  
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
