@@ -1,2 +1,5 @@
 # flutter-url-shortner
-A Web app made with Flutter which shortens a long URL.
+An Android app made with Flutter which shortens a any URL.
+
+## Screenshots
+ 
